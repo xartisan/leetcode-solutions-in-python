@@ -14,9 +14,7 @@ class Solution:
             last_c_index = record.get(c)
             if last_c_index is None or last_c_index < start:
                 cur_len = i - start
-                if i - start > max_len:
-                    # cur_longest = s[start:i]
-                    max_len = cur_len
+                max_len = max(cur_len, max_len)
             else:
                 start = last_c_index + 1
             record[c] = i - 1
