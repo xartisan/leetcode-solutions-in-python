@@ -12,16 +12,19 @@ class Solution:
         """
         length = 0
         # exchange time for space
-        record = []
+        dummy_node = ListNode(0)
+        dummy_node.next = head
+        nth_node = head
+        nth_node_prev = dummy_node
         cur = head
         while cur:
+            print(cur.val)
             length += 1
-            record.append(cur)
+            if length > 7:
+                nth_node_prev = nth_node
+                nth_node = nth_node.next
             cur = cur.next
         
-        target_index = length - n
-        if target_index == 0:
-            return head.next
-        prev = record[target_index - 1]
-        prev.next = record[target_index].next
-        return head
+        nth_node_prev.next = nth_node.next
+        return dummy_node.next
+        
