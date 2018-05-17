@@ -5,14 +5,11 @@ class Solution:
         :rtype: bool
         """
         empty = '.'
-        row_collisions = set()
-        column_collisions = set()
-        sub_sudoku_collisions = set()
 
         for row in range(9):
-            row_collisions.clear()
-            column_collisions.clear()
-            sub_sudoku_collisions.clear()
+            row_collisions = set()
+            column_collisions = set()
+            sub_sudoku_collisions = set()
             for col in range(9):
                 row_elem = board[row][col]
                 col_elem = board[col][row]
