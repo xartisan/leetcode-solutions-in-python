@@ -19,5 +19,3 @@ class Solution:
             rv.append(str(carry))
         return ''.join(reversed(rv))
         
-
-            
