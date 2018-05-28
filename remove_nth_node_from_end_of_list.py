@@ -18,13 +18,11 @@ class Solution:
         nth_node_prev = dummy_node
         cur = head
         while cur:
-            print(cur.val)
             length += 1
-            if length > 7:
+            if length > n:
                 nth_node_prev = nth_node
                 nth_node = nth_node.next
             cur = cur.next
         
         nth_node_prev.next = nth_node.next
         return dummy_node.next
-        
