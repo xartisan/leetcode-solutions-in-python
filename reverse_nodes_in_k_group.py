@@ -4,51 +4,45 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
+    @staticmethod
+    def reversed_listnode(head, end):
+        rv = None
+        while head is not end:
+            h = head
+            head = head.next
+            h.next = rv
+            rv = h
+        return rv
+
     def reverseKGroup(self, head, k):
         """
         :type head: ListNode
         :type k: int
         :rtype: ListNode
         """
-        if k == 1:
-            return head
         dummy_node = ListNode(0)
         dummy_node.next = head
-        last_end = dummy_node
-        end = head
-        step = 1
-        k_list = None
-        k_list_last = None
-        while end:
-            if step == k:
-                tail = end.next
-                end.next = k_list
-                k_list = end
-                k_list_last.next = tail
-                last_end.next = k_list
-                last_end = k_list_last
-                k_list = None
-                end = tail
-                step = 1
-            else:
-                if step == 1:
-                    k_list_last = end
+        end = dummy_node
 
-                tmp = end
-                end = end.next
-                tmp.next = k_list
-                k_list = tmp
+        cur = head
+        group = None
+        group_size = 0
+        while cur is not None:
+            group_size += 1
+            if group_size == 1:
+                group = cur
+            cur = cur.next
 
-                step += 1
-        acc = None
-        if k_list is not None:
-            while k_list:
-                tail = k_list.next
-                k_list.next = acc
-                acc = k_list
-                k_list = tail
-            last_end.next = acc
+            if group_size == k:
 
+                end.next = self.reversed_listnode(group, cur)
+                end = group
+                group = None
+                group_size = 0
+
+        if group_size > 0:
+            end.next = group
 
         return dummy_node.next
