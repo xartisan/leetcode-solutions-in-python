@@ -4,31 +4,36 @@ class Solution:
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        nums_len = len(nums)
-        # 2 3 4 3
-        i = nums_len - 2
         done = False
-        while i >= 0:
+        for i in range(len(nums) - 2, -1, -1):
             cur_val = nums[i]
-            # using binary search
-            start, end = i + 1, nums_len - 1
+            if cur_val >= nums[i + 1]:
+                continue
+            # insert
+            start, end = i + 1, len(nums) - 1
+
             while start <= end:
                 mid = (start + end) // 2
                 mid_val = nums[mid]
-                if mid_val <= cur_val:
-                    start = mid + 1
-                else:
+                if mid_val == cur_val:
                     end = mid - 1
-            if start < nums_len:
-                nums[i] = nums[start]
-                nums[start] = cur_val
-                done = True
-                break
-            else:
-                for k in range(i, nums_len - 1):
-                    nums[k] = nums[k + 1]
-                nums[-1] = cur_val
+                    while nums[end] == cur_val:
+                        end -= 1 
+                    break
+                elif mid_val < cur_val:
+                    end = mid - 1
+                else:
+                    start = mid + 1
+            nums[i], nums[end] = nums[end], nums[i]
+            # sort
+            start, end = i + 1, len(nums) - 1
+            while start < end:
+                nums[start], nums[end] = nums[end], nums[start]
+                start += 1
+                end -= 1
 
-            i -= 1
+            done = True
+            break
+
         if not done:
             nums.sort()
