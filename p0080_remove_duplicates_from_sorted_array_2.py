@@ -8,7 +8,6 @@ class Solution:
         last_num = None
         last_num_count = 0
         LIMIT = 2
-        i = 0
         for i in range(0, len(nums)):
             num = nums[i]
             if num == last_num and last_num_count >= LIMIT:
